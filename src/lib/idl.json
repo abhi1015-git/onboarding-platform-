@@ -1,0 +1,261 @@
+{
+  "address": "9sYR8qpGVRQoVH9iA4MfSnArdDQtQq3wTopD6nSBiBbg",
+  "metadata": {
+    "name": "solana_program",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "initialize_employee",
+      "discriminator": [
+        148,
+        80,
+        225,
+        124,
+        222,
+        137,
+        207,
+        168
+      ],
+      "accounts": [
+        {
+          "name": "employee_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  109,
+                  112,
+                  108,
+                  111,
+                  121,
+                  101,
+                  101
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "employee_hash"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "employee_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "company_id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "record_document_proof",
+      "discriminator": [
+        20,
+        67,
+        195,
+        146,
+        68,
+        237,
+        159,
+        83
+      ],
+      "accounts": [
+        {
+          "name": "document_proof",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  114,
+                  111,
+                  111,
+                  102
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "document_hash"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "document_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "DocumentProof",
+      "discriminator": [
+        251,
+        32,
+        206,
+        244,
+        0,
+        75,
+        121,
+        133
+      ]
+    },
+    {
+      "name": "EmployeeAccount",
+      "discriminator": [
+        65,
+        245,
+        87,
+        188,
+        58,
+        86,
+        209,
+        151
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "UnauthorizedSigner",
+      "msg": "Only the authorized Operational Wallet (The Runner) can perform this action."
+    }
+  ],
+  "types": [
+    {
+      "name": "DocumentProof",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "employee_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "document_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "name": "verified_by",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EmployeeAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "employee_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "company_id",
+            "type": "string"
+          },
+          {
+            "name": "onboarding_status",
+            "type": {
+              "defined": {
+                "name": "OnboardingStatus"
+              }
+            }
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnboardingStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pending"
+          },
+          {
+            "name": "Verified"
+          },
+          {
+            "name": "Rejected"
+          }
+        ]
+      }
+    }
+  ]
+}
